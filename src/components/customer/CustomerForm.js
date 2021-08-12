@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import http from '../../services/HttpService';
+import { toast } from 'react-toastify';
 
 export default function CustomerForm(props) {
     const baseUrl=`http://localhost:8088/api/v1`;
@@ -85,6 +86,7 @@ export default function CustomerForm(props) {
                 const apiEndPoint=baseUrl+`/customers/customer/${customer.id}`;
                 const response=await http.put(apiEndPoint,customer);
                 console.log(response.data);
+                toast.success("Customer Updated Successfully")
             }
             else{
                 const apiEndPoint=baseUrl+`/customers/customer`;

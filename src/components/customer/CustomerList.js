@@ -15,17 +15,15 @@ export default function CustomerList() {
             setCustomers(result.data)
 
         }
-
         getCustomers();
     }, [])
-
 
 
     const deleteCustomer=async (event,customerId)=>{
         event.preventDefault();
         alert(customerId);
 
-        const apiEndPoint=config.baseUrl+`/customers/customer/${customerId}`
+        const apiEndPoint="s"+config.baseUrl+`/customers/customer/${customerId}`
         try{
             const result=await http.delete(apiEndPoint);
             let updatedCustomers=customers.filter(

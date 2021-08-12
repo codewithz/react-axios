@@ -1,16 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
 import CustomerList from './components/customer/CustomerList';
-import Counter from './components/Counter';
 import CustomerForm from './components/customer/CustomerForm';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 function App() {
   return (
     <div >
-   
+    <ToastContainer />
     <BrowserRouter>
     <Switch>
     <Route path="/customers" component={CustomerList} />
