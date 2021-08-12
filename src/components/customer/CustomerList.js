@@ -1,36 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import config from '../../config.json';
-
-
+import http from '../../services/HttpService';
 
 export default function CustomerList() {
 
     const [customers, setCustomers] = useState([]);
-    // const baseUrl = `http://localhost:8088/api/v1`;
-
-    // useEffect(()=>{
-    //     const apiEnpoint=baseUrl+`/customers/customers`;
-    //     const promise=axios.get(apiEnpoint);
-    //     promise
-    //     .then(
-    //         (response)=>{
-    //             console.log(response.data)
-    //             setCustomers(response.data);
-    //         }
-    //     )
-    //     .catch(
-
-
-    //     )
-    // },[]);
 
     useEffect(() => {
         const apiEnpoint = config.baseUrl + `/customers/customers`;
 
         async function getCustomers() {
-            const result = await axios.get(apiEnpoint);
+            const result = await http.get(apiEnpoint);
             setCustomers(result.data)
 
         }
@@ -46,19 +27,16 @@ export default function CustomerList() {
 
         const apiEndPoint=config.baseUrl+`/customers/customer/${customerId}`
         try{
-            const result=await axios.delete(apiEndPoint);
+            const result=await http.delete(apiEndPoint);
             let updatedCustomers=customers.filter(
                 customer=>customer.id!==customerId
             );
             setCustomers(updatedCustomers);
         }
         catch(ex){
+          
             if(ex.response && ex.response.status===404){
                 alert("This post doesn't exist anymore")
-            }
-            else{
-                console.log("Logging the error",ex);
-                alert("An unexpected error occured");
             }
         }
       

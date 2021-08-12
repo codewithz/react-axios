@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import http from '../../services/HttpService';
 
 export default function CustomerForm(props) {
     const baseUrl=`http://localhost:8088/api/v1`;
@@ -17,7 +17,7 @@ export default function CustomerForm(props) {
         const customerId=props.match.params.id;
         if(customerId){
             const apiEndPoint=baseUrl+`/customers/customer/${customerId}`
-            const result=await axios.get(apiEndPoint);
+            const result=await http.get(apiEndPoint);
             setCustomer(result.data);
         }
     }
@@ -80,15 +80,15 @@ export default function CustomerForm(props) {
     }
 
     const submitForm=async ()=>{
-            
+
             if(customer.id){
                 const apiEndPoint=baseUrl+`/customers/customer/${customer.id}`;
-                const response=await axios.put(apiEndPoint,customer);
+                const response=await http.put(apiEndPoint,customer);
                 console.log(response.data);
             }
             else{
                 const apiEndPoint=baseUrl+`/customers/customer`;
-                const response=await axios.post(apiEndPoint,customer);
+                const response=await http.post(apiEndPoint,customer);
                 console.log(response.data);
             }
         
