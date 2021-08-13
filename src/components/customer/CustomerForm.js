@@ -36,7 +36,7 @@ export default function CustomerForm(props) {
                     name="name"
                     className="form-control"
                     value={customer.name}
-                    onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
+                    onChange={(e) =>handleChange(e)}
                 />
                 <label>Email:</label>
                 <input
@@ -44,7 +44,7 @@ export default function CustomerForm(props) {
                     name="email"
                     className="form-control"
                     value={customer.email}
-                    onChange={(e) => setCustomer({ ...customer, email: e.target.value })}
+                    onChange={(e) => handleChange(e)}
                 />
                 <label>Phone:</label>
                 <input
@@ -52,7 +52,7 @@ export default function CustomerForm(props) {
                     name="phone"
                     className="form-control"
                     value={customer.phone}
-                    onChange={(e) => setCustomer({ ...customer, phone: e.target.value })}
+                    onChange={(e) => handleChange(e)}
                 />
                 <label>Birthdate:</label>
                 <input
@@ -60,7 +60,8 @@ export default function CustomerForm(props) {
                     name="birthdate"
                     className="form-control"
                     value={customer.birthdate}
-                    onChange={(e) => setCustomer({ ...customer, birthdate: e.target.value })}
+                    //onChange={(e) => setCustomer({ ...customer, birthdate: e.target.value })}
+                    onChange={(e) => handleChange(e)}
                 />
                 <label>Active:</label>
                 <input
@@ -68,10 +69,10 @@ export default function CustomerForm(props) {
                     name="active"
                     className="form-control"
                     value={customer.active}
-                    onChange={(e) => setCustomer({ ...customer, active: e.target.value })}
+                    onChange={(e) => handleChange(e)}
                 />
 
-                <button className="btn btn-primary btn-sm" onClick={submitForm}>Submit</button>
+                <button className="btn btn-primary btn-sm" onClick={(event)=>submitForm(event)}>Submit</button>
 
 
             </form>
@@ -80,8 +81,18 @@ export default function CustomerForm(props) {
         return customerForm;
     }
 
-    const submitForm=async ()=>{
+    const handleChange=(event)=>{
+  
+        const {name,value}=event.target;
 
+        let customerData={...customer};
+        customerData[name]=value;
+        setCustomer(customerData);
+    }
+
+    const submitForm=async (event)=>{
+            event.preventDefault();
+            
             if(customer.id){
                 const apiEndPoint=baseUrl+`/customers/customer/${customer.id}`;
                 const response=await http.put(apiEndPoint,customer);
