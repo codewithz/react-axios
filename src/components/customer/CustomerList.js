@@ -23,7 +23,7 @@ export default function CustomerList() {
         event.preventDefault();
         alert(customerId);
 
-        const apiEndPoint="s"+config.baseUrl+`/customers/customer/${customerId}`
+        const apiEndPoint=config.baseUrl+`/customers/customer/${customerId}`
         try{
             const result=await http.delete(apiEndPoint);
             let updatedCustomers=customers.filter(
